@@ -12,7 +12,7 @@
     
         <div class="shadow-xl bg-white w-full px-8 py-8 rounded-lg">
             <p class="text-base leading-6 font-medium text-center">Pilih peran yang kamu mainkan</p>
-            <button class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Pemain</button>
+            <button onclick="window.location.href='/prepare'" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Pemain</button>
             <button class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Guru</button>
         </div>
     </main>
