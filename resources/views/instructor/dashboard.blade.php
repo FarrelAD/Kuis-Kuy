@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparation</title>
+    <title>Dashboard</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -20,7 +20,7 @@
         </div>
     </nav>
     <main class="h-full w-full px-9 py-10">
-        <div class="w-full my-4 bg-white rounded-lg shadow-md py-4 px-4 text-sm leading-5 font-bold">
+        <div onclick="window.location.href='/new-quiz'" class="w-full my-4 bg-white rounded-lg shadow-md py-4 px-4 text-sm leading-5 font-bold">
             Buat kuis baru
         </div>
         <div class="w-full my-4 bg-white rounded-lg shadow-md py-4 px-4 text-sm leading-5 font-bold">

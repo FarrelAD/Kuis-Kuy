@@ -24,5 +24,5 @@ Route::get('/leaderboard', function () {
 
 // Teacher route
 Route::get('/dashboard', function () {
-    return view('teacher.dashboard');
+    return view('instructor.dashboard');
 });

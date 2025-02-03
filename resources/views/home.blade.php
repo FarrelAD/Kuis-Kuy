@@ -13,7 +13,7 @@
         <div id="card" class="shadow-xl bg-white w-full px-8 py-8 rounded-lg">
             <p class="text-base leading-6 font-medium text-center">Pilih peran yang kamu mainkan</p>
             <button onclick="setPlayer()" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Pemain</button>
-            <button onclick="setTeacher()" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Guru</button>
+            <button onclick="setInstructor()" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Guru</button>
         </div>
     </main>
 
@@ -32,7 +32,7 @@
     </template>
 
 
-    <template id="teacher-card">
+    <template id="instructor-card">
         <p class="text-base leading-6 font-medium text-center">Login</p>
 
         <input type="text" name="username" id="input-username" placeholder="Nama pengguna" class="shadow-inner rounded-md bg-gray-100 w-full px-4 py-2 my-4">
@@ -44,16 +44,16 @@
     <script>
         const card = document.getElementById('card');
         const playerCard = document.getElementById('player-card');
-        const teacherCard = document.getElementById('teacher-card');
+        const instructorCard = document.getElementById('instructor-card');
 
         function setPlayer() {
             const playerCardTemplate = playerCard.content.cloneNode(true);
             card.replaceChildren(playerCardTemplate);
         }
 
-        function setTeacher() {
-            const teacherCardTemplate = teacherCard.content.cloneNode(true);
-            card.replaceChildren(teacherCardTemplate);
+        function setInstructor() {
+            const instructorCardTemplate = instructorCard.content.cloneNode(true);
+            card.replaceChildren(instructorCardTemplate);
         }
     </script>
 </body>
