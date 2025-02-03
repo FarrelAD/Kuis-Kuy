@@ -19,7 +19,7 @@
             <h1 class="text-lg leading-7 font-bold ms-4">Tes Koding</h1>
         </div>
     </nav>
-    <main class="h-full w-full px-8 py-20">
+    <main class="h-full w-full px-8 py-20 grid grid-cols-1 gap-6">
         <div class="bg-white shadow-md rounded-md flex">
             <div class="p-4">
                 <h1 class="text-lg leading-7 font-bold">Uji Pemahaman Python</h1>
@@ -29,7 +29,11 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 mt-10">
+        <div>
+            <button onclick="window.location.href='/questions/1'" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Mainkan</button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
             <div class="bg-slate-950 w-full">
                 <p class="text-white text-center py-2">Ahmad</p>
             </div>
