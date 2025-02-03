@@ -53,7 +53,7 @@ print(x // y)
         </section>
 
         <div class="flex justify-end">
-            <button class="bg-slate-950 border p-2 text-white text-center rounded-md">Selanjutnya</button>
+            <button onclick="window.location.href='/leaderboard'" class="bg-slate-950 border p-2 text-white text-center rounded-md">Selanjutnya</button>
         </div>
     </main>
 </body>

@@ -17,6 +17,9 @@ Route::get('/playground', function () {
 Route::get('/questions/1', function () {
     return view('player.questions');
 });
+Route::get('/leaderboard', function () {
+    return view('player.leaderboard');
+});
 
 
 // Teacher route
