@@ -22,7 +22,10 @@ Route::get('/leaderboard', function () {
 });
 
 
-// Teacher route
+// Instructor route
 Route::get('/dashboard', function () {
     return view('instructor.dashboard');
+});
+Route::get('/new-quiz', function () {
+    return view('instructor.new-quiz');
 });
