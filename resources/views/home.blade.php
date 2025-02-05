@@ -22,10 +22,10 @@
         <p class="text-base leading-6 font-medium text-center">Masukkan kode ruang bermain</p>
         
         <div class="grid grid-cols-4 gap-4 my-14">
-            <input type="number" name="code1" id="" placeholder="-" class="shadow-inner rounded-md bg-gray-100 w-12 h-12">
-            <input type="number" name="code1" id="" placeholder="-" class="shadow-inner rounded-md bg-gray-100 w-12 h-12">
-            <input type="number" name="code1" id="" placeholder="-" class="shadow-inner rounded-md bg-gray-100 w-12 h-12">
-            <input type="number" name="code1" id="" placeholder="-" class="shadow-inner rounded-md bg-gray-100 w-12 h-12">
+            <input type="text" maxlength="1" name="game_code" id="" placeholder="-" class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+            <input type="text" maxlength="1" name="game_code" id="" placeholder="-" class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+            <input type="text" maxlength="1" name="game_code" id="" placeholder="-" class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+            <input type="text" maxlength="1" name="game_code" id="" placeholder="-" class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
         </div>
 
         <button onclick="window.location.href='/prepare'" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Mainkan</button>
