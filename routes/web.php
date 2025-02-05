@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,9 +24,12 @@ Route::get('/leaderboard', function () {
 
 
 // Instructor route
+Route::get('/signup', [RegisterController::class, 'show']);
+Route::post('/signup', [RegisterController::class, 'signup'])
+    ->name('signup.post');
 Route::get('/dashboard', function () {
     return view('instructor.dashboard');
-});
+})->name('instructor.dashboard');
 Route::get('/new-quiz', function () {
     return view('instructor.new-quiz');
 });
