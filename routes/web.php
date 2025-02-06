@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,3 +34,4 @@ Route::get('/dashboard', function () {
 Route::get('/new-quiz', function () {
     return view('instructor.new-quiz');
 });
+Route::post('/new-quiz', [QuizController::class, 'create']);
