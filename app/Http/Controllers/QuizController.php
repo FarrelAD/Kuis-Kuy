@@ -3,13 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuizCodes;
 use App\Models\Quizzez;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
+    public function showCreate()
+    {
+        return view('instructor.new-quiz');
+    }
+
+    public function showAllQuiz()
+    {
+        return view('instructor.all-quiz');
+    }
+
+    public function showStartQuiz(int $id)
+    {
+        try {
+            $quiz = Quizzez::where('id_quiz', $id)->firstOrFail();
+            return view('instructor.start-quiz', ['quiz' => $quiz]);
+        } catch (ModelNotFoundException $e) {
+            return view('instructor.start-quiz', ['quiz' => null]);
+        }
+    }
+
+    public function generateGameCode(Request $req)
+    {
+        $data = $req->json()->all();
+
+        if (!isset($data['id_quiz'])) {
+            return response()->json([
+                'message' => 'ID Quiz data is missing'
+            ], 400);
+        }
+
+        $quiz_code = QuizCodes::generate($data['id_quiz'], $data['game_duration']);
+
+        return response()->json([
+            'quiz_code' => $quiz_code->code,
+            'expired_at' => $quiz_code->expired_at
+        ]);
+    }
+
     public function create(Request $req)
     {
         DB::beginTransaction();
