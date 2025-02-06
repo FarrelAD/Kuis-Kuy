@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Quizzez extends Model
 {
@@ -17,7 +18,6 @@ class Quizzez extends Model
     protected $fillable = [
         'id_instructor',
         'name',
-        'shared_public_key',
         'total_question',
         'date_created',
     ];
@@ -30,5 +30,10 @@ class Quizzez extends Model
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'id_quiz');
+    }
+
+    public function quizCode(): HasOne
+    {
+        return $this->hasOne(QuizCode::class);
     }
 }

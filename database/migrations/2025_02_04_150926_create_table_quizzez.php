@@ -17,9 +17,8 @@ return new class extends Migration {
                 ->references('id_instructor')
                 ->on('instructors');
             $table->string('name');
-            $table->string('shared_public_key');
             $table->integer('total_question');
-            $table->dateTime('date_created');
+            $table->timestamp('date_created');
         });
     }
 
