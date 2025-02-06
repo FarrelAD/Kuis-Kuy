@@ -34,6 +34,6 @@ class Quizzez extends Model
 
     public function quizCode(): HasOne
     {
-        return $this->hasOne(QuizCode::class);
+        return $this->hasOne(QuizCodes::class);
     }
 }
