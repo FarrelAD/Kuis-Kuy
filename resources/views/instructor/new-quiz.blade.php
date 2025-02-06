@@ -139,7 +139,7 @@
             }
 
 
-            fetch('/new-quiz', {
+            fetch('{{ route('instructor.new-quiz') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
