@@ -42,16 +42,30 @@
 
 
     <template id="instructor-card">
-        <p class="text-base leading-6 font-medium text-center">Login</p>
+        <form action="{{ route('login.post') }}" method="post">
+            @csrf
+            
+            <p class="text-base leading-6 font-medium text-center">Login</p>
+    
+            <input type="text" name="username" id="input-username" placeholder="Nama pengguna" required
+                class="shadow-inner rounded-md bg-gray-100 w-full px-4 py-2 my-4">
+            <input type="password" name="password" id="input-password" placeholder="Password" required    
+                class="shadow-inner rounded-md bg-gray-100 w-full px-4 py-2 my-4">
+    
+            <input type="submit" value="Masuk"
+                class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">
+            <a href="/signup" class="w-full block font-bold text-xs text-center hover:underline">Belum punya akun?</a>
 
-        <input type="text" name="username" id="input-username" placeholder="Nama pengguna"
-            class="shadow-inner rounded-md bg-gray-100 w-full px-4 py-2 my-4">
-        <input type="password" name="password" id="input-password" placeholder="Password"
-            class="shadow-inner rounded-md bg-gray-100 w-full px-4 py-2 my-4">
-
-        <button onclick="window.location.href='/dashboard'"
-            class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Masuk</button>
-        <a href="/signup" class="w-full block font-bold text-xs text-center hover:underline">Belum punya akun?</a>
+            @if ($errors->any())
+                <div class="text-red-500 text-sm my-2">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </form>
     </template>
 
     <script>

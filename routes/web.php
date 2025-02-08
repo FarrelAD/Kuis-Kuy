@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +25,11 @@ Route::get('/leaderboard', function () {
 
 
 // Instructor route
-Route::get('/signup', [RegisterController::class, 'show']);
-Route::post('/signup', [RegisterController::class, 'signup'])
+Route::get('/signup', [AuthController::class, 'showSignup']);
+Route::post('/signup', [AuthController::class, 'signup'])
     ->name('signup.post');
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.post');
 Route::get('/dashboard', function () {
     return view('instructor.dashboard');
 })->name('instructor.dashboard');
