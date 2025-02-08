@@ -19,7 +19,9 @@ class QuizController extends Controller
 
     public function showAllQuiz()
     {
-        return view('instructor.all-quiz');
+        $quizzez = Quizzez::where('id_instructor', Auth::id())->get();
+
+        return view('instructor.all-quiz', ['quizzez' => $quizzez]);
     }
 
     public function showStartQuiz(int $id)
