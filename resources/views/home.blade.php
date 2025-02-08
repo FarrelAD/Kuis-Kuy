@@ -15,7 +15,7 @@
             <div x-show="open" x-transition.opacity.duration.300ms
                 class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                 <div class="bg-white rounded-lg shadow-lg p-6 w-80">
-                    <h2 class="text-lg font-bold text-red-600">Halaman web terproteksi!</h2>
+                    <h2 class="text-lg font-bold text-red-600">{{ session('title') }}</h2>
                     <p class="text-gray-700 mt-2">{{ session('error') }}</p>
 
                     <button @click="open = false"
@@ -42,21 +42,35 @@
 
 
     <template id="player-card">
-        <p class="text-base leading-6 font-medium text-center">Masukkan kode ruang bermain</p>
+        <form action="{{ route('validate-game') }}" method="post">
+            @csrf
+            
+            <p class="text-base leading-6 font-medium text-center">Masukkan kode ruang bermain</p>
+    
+            <div class="grid grid-cols-4 gap-4 my-14">
+                <input type="text" maxlength="1" name="game_code[]" placeholder="-" required
+                    class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+                <input type="text" maxlength="1" name="game_code[]" placeholder="-" required
+                    class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+                <input type="text" maxlength="1" name="game_code[]" placeholder="-" required
+                    class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+                <input type="text" maxlength="1" name="game_code[]" placeholder="-" required
+                    class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
+            </div>
+    
+            <input type="submit" value="Mainkan"
+                class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">
 
-        <div class="grid grid-cols-4 gap-4 my-14">
-            <input type="text" maxlength="1" name="game_code" id="" placeholder="-"
-                class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
-            <input type="text" maxlength="1" name="game_code" id="" placeholder="-"
-                class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
-            <input type="text" maxlength="1" name="game_code" id="" placeholder="-"
-                class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
-            <input type="text" maxlength="1" name="game_code" id="" placeholder="-"
-                class="game-code-input shadow-inner rounded-md bg-gray-100 w-12 h-12 text-center font-bold">
-        </div>
-
-        <button onclick="window.location.href='/prepare'"
-            class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Mainkan</button>
+            @if ($errors->any())
+                <div class="text-red-500 text-sm my-2">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </form>
     </template>
 
 
@@ -95,6 +109,15 @@
         function setPlayer() {
             const playerCardTemplate = playerCard.content.cloneNode(true);
             card.replaceChildren(playerCardTemplate);
+
+
+            const inputGameCodes = document.querySelectorAll('[name="game_code[]"]');
+
+            inputGameCodes.forEach(element => {
+                element.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            });
         }
 
         function setInstructor() {

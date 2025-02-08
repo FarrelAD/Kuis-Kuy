@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparation</title>
+    <title>Persiapan</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -19,6 +19,7 @@
             <h1 class="text-lg leading-7 font-bold ms-4">Tes Koding</h1>
         </div>
     </nav>
+    
     <main class="h-full w-full flex justify-center">
         <div class="flex justify-center align-middle flex-col w-3/4">
             <div class="w-full px-12 py-14 shadow-md bg-white">

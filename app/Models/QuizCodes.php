@@ -29,7 +29,7 @@ class QuizCodes extends Model
     public static function generate(int $id_quiz, int $game_duration)
     {
         return self::create([
-            'code' => Str::random(4),
+            'code' => strtoupper(Str::random(4)),
             'expired_at' => Carbon::now()->addMinutes(10),
             'game_duration' => $game_duration,
             'id_quiz' => $id_quiz
