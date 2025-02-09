@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id('id_player');
             $table->string('full_name');
-            $table->float('score');
+            $table->float('score')->default(0);
+            $table->string('id_student');
             $table->unsignedBigInteger('id_quiz');
             $table->foreign('id_quiz')
                 ->references('id_quiz')

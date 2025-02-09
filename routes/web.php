@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InstructorAuthController;
 use App\Http\Controllers\PlayerQuizController;
 use App\Http\Controllers\QuizController;
 use App\Http\Middleware\AuthMiddleware;
@@ -13,16 +13,16 @@ Route::get('/', function () {
 
 
 // Public player route
-Route::post('/validate-game', [PlayerQuizController::class, 'enterGameRoom'])
-    ->name('validate-game');
+Route::post('/quiz-preparation', [PlayerQuizController::class, 'validateGameCode'])
+    ->name('quiz-preparation');
+Route::post('/enter-room', [PlayerQuizController::class, 'enterRoom'])
+    ->name('enter-quiz-room');
 
 
 // Protected player route
-Route::get('/prepare', [PlayerQuizController::class, 'showPreparation'])
-    ->name('player.preparation');
 Route::get('/playground', function () {
     return view('player.playground');
-});
+})->name('player.playground');
 Route::get('/questions/1', function () {
     return view('player.questions');
 });
@@ -32,10 +32,10 @@ Route::get('/leaderboard', function () {
 
 
 // Public instructor route
-Route::get('/signup', [AuthController::class, 'showSignup']);
-Route::post('/signup', [AuthController::class, 'signup'])
+Route::get('/signup', [InstructorAuthController::class, 'showSignup']);
+Route::post('/signup', [InstructorAuthController::class, 'signup'])
     ->name('signup.post');
-Route::post('/login', [AuthController::class, 'login'])
+Route::post('/login', [InstructorAuthController::class, 'login'])
     ->name('login.post');
 
 

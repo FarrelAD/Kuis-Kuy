@@ -42,7 +42,7 @@
 
 
     <template id="player-card">
-        <form action="{{ route('validate-game') }}" method="post">
+        <form action="{{ route('quiz-preparation') }}" method="post">
             @csrf
             
             <p class="text-base leading-6 font-medium text-center">Masukkan kode ruang bermain</p>
