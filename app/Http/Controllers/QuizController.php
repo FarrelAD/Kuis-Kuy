@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class QuizController extends Controller
 {
@@ -19,7 +20,7 @@ class QuizController extends Controller
 
     public function showAllQuiz()
     {
-        $quizzez = Quizzez::where('id_instructor', Auth::id())->get();
+        $quizzez = Quizzez::where('id_instructor', Auth::guard('instructor')->id())->get();
 
         return view('instructor.all-quiz', ['quizzez' => $quizzez]);
     }
@@ -60,7 +61,7 @@ class QuizController extends Controller
             $data = $req->json()->all();
 
             $quiz = Quizzez::create([
-                'id_instructor' => Auth::id(),
+                'id_instructor' => Auth::guard('instructor')->id(),
                 'name' => $data['name'],
                 'shared_public_key' => 'RANDOM_KEY',
                 'total_question' => $data['total_question'],
@@ -85,13 +86,13 @@ class QuizController extends Controller
             DB::commit();
             return response()->json([
                 'message' => 'Data saved successfully'
-            ], 200);
+            ], Response::HTTP_OK);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'message' => 'Error saving data',
                 'error' => $e->getMessage()
-            ], 500);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
