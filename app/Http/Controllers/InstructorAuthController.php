@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\InstructorLoginRequest;
+use App\Http\Requests\InstructorSignupRequest;
 use App\Models\Instructor;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AuthController extends Controller
+class InstructorAuthController extends Controller
 {
-    public function login(LoginRequest $req)
+    public function login(InstructorLoginRequest $req)
     {
         $credentials = $req->validated();
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('instructor')->attempt($credentials)) {
             $req->session()->regenerate();
             return redirect()->route('instructor.dashboard')->with('success', 'welcome');
         }
@@ -30,19 +30,14 @@ class AuthController extends Controller
         return view('instructor.signup');
     }
 
-    public function signup(Request $req)
+    public function signup(InstructorSignupRequest $req)
     {
-        $req->validate([
-            'username' => 'required|string|max:255|unique:instructors',
-            'password' => 'required|string|min:6|confirmed'
-        ]);
+        $credentials = $req->validated();
+        $credentials['password'] = Hash::make($credentials['password']);
 
-        $instructor = Instructor::create([
-            'username' => $req->username,
-            'password' => Hash::make($req->password)
-        ]);
+        $instructor = Instructor::create($credentials);
 
-        auth()->login($instructor);
+        auth()->guard('instructor')->login($instructor);
 
         return redirect()->route('instructor.dashboard');
     }

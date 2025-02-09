@@ -36,10 +36,14 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'instructor' => [
             'driver' => 'session',
             'provider' => 'instructors',
         ],
+        'player' => [
+            'driver' => 'session',
+            'provider' => 'players'
+        ]
     ],
 
     /*
@@ -62,13 +66,12 @@ return [
     'providers' => [
         'instructors' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Instructor::class),
+            'model' => App\Models\Instructor::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'players' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Player::class
+        ]
     ],
 
     /*
