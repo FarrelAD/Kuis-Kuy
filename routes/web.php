@@ -3,7 +3,7 @@
 use App\Http\Controllers\InstructorAuthController;
 use App\Http\Controllers\PlayerQuizController;
 use App\Http\Controllers\QuizController;
-use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\InstructorAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,7 +40,7 @@ Route::post('/login', [InstructorAuthController::class, 'login'])
 
 
 
-Route::middleware([AuthMiddleware::class])->group(function () {
+Route::middleware([InstructorAuthMiddleware::class])->group(function () {
 
     // Protected instructor route
     Route::get('/dashboard', function () {
