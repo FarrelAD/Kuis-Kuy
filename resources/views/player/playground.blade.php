@@ -16,14 +16,15 @@
                 <path d="M5 12H19" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
                 <path d="M5 17H19" stroke="#33363F" stroke-width="2" stroke-linecap="round" />
             </svg>
-            <h1 class="text-lg leading-7 font-bold ms-4">Tes Koding</h1>
+            <h1 class="text-lg leading-7 font-bold ms-4">Playground</h1>
         </div>
     </nav>
-    <main class="h-full w-full px-8 py-20 grid grid-cols-1 gap-6">
+
+    <main class="w-full px-8 py-20 grid grid-cols-1 gap-6">
         <div class="bg-white shadow-md rounded-md flex">
             <div class="p-4">
-                <h1 class="text-lg leading-7 font-bold">Uji Pemahaman Python</h1>
-                <p class="text-xs leading-4 font-normal">Algoritma dan Struktur Data</p>
+                <h1 class="text-lg leading-7 font-bold">{{ $quiz->name }}</h1>
+                <p class="text-xs leading-4 font-normal">{{ $quiz->total_question }} soal</p>
             </div>
             <div class="w-36 h-36 bg-cover rounded-e-md" style="background-image: url({{ asset('assets/img/python.png') }});">
             </div>
@@ -34,89 +35,8 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Ahmad</p>
-            </div>
-            <div class="bg-slate-950 w-full">
-                <p class="text-white text-center py-2">Abimanyu</p>
+            <div class="bg-slate-950 w-full rounded-sm">
+                <p class="text-white text-center py-2">{{ $player->full_name }}</p>
             </div>
         </div>
     </main>

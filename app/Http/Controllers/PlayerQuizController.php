@@ -6,6 +6,8 @@ use App\Http\Requests\PlayerJoinRequest;
 use App\Http\Requests\StartGameRequest;
 use App\Models\Player;
 use App\Models\QuizCodes;
+use App\Models\Quizzez;
+use Illuminate\Support\Facades\Auth;
 
 class PlayerQuizController extends Controller
 {
@@ -33,6 +35,15 @@ class PlayerQuizController extends Controller
 
         auth()->guard('player')->login($player);
 
-        return redirect()->route('player.playground');
+        return redirect()->route('player.playground', ['id' => $credentials['id_quiz']]);
+    }
+
+    public function playground(int $id)
+    {
+        $quiz = Quizzez::find($id);
+
+        $player = Auth::guard('player')->user();
+
+        return view('player.playground', ['quiz' => $quiz, 'player' => $player]);
     }
 }

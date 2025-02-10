@@ -4,6 +4,7 @@ use App\Http\Controllers\InstructorAuthController;
 use App\Http\Controllers\PlayerQuizController;
 use App\Http\Controllers\QuizController;
 use App\Http\Middleware\InstructorAuthMiddleware;
+use App\Http\Middleware\PlayerAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,16 +20,18 @@ Route::post('/enter-room', [PlayerQuizController::class, 'enterRoom'])
     ->name('enter-quiz-room');
 
 
-// Protected player route
-Route::get('/playground', function () {
-    return view('player.playground');
-})->name('player.playground');
-Route::get('/questions/1', function () {
-    return view('player.questions');
+Route::middleware([PlayerAuthMiddleware::class])->group(function () {
+    
+    // Protected player route
+    Route::get('/playground/{id}', [PlayerQuizController::class, 'playground'])->name('player.playground');
+    Route::get('/questions/1', function () {
+        return view('player.questions');
+    });
+    Route::get('/leaderboard', function () {
+        return view('player.leaderboard');
+    });
 });
-Route::get('/leaderboard', function () {
-    return view('player.leaderboard');
-});
+
 
 
 // Public instructor route
@@ -37,7 +40,6 @@ Route::post('/signup', [InstructorAuthController::class, 'signup'])
     ->name('signup.post');
 Route::post('/login', [InstructorAuthController::class, 'login'])
     ->name('login.post');
-
 
 
 Route::middleware([InstructorAuthMiddleware::class])->group(function () {
