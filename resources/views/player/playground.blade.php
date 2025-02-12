@@ -34,6 +34,7 @@
             <form action="{{ route('player.start-quiz') }}" method="post">
                 @csrf
                 
+                <input type="hidden" name="id_player" value="{{ $player->id_player }}">
                 <input type="hidden" name="id_quiz" value="{{ $quiz->id_quiz }}">
                 <input type="submit" value="Mainkan" class="block bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">
             </form>

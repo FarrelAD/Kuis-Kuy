@@ -25,10 +25,12 @@ Route::middleware([PlayerAuthMiddleware::class])->group(function () {
     // Protected player route
     Route::get('/playground/{id}', [PlayerQuizController::class, 'playground'])
         ->name('player.playground');
-    Route::post('/quiz', [PlayerQuizController::class, 'startQuiz'])
+    Route::post('/quiz/start', [PlayerQuizController::class, 'startQuiz'])
         ->name('player.start-quiz');
     Route::get('/quiz', [PlayerQuizController::class, 'showStartQuiz'])
         ->name('player.show-start-quiz');
+    Route::post('/quiz/submit', [PlayerQuizController::class, 'submitQuiz'])
+        ->name('player.submit-quiz');
     Route::get('/leaderboard', [PlayerQuizController::class, 'showLeaderboard'])
         ->name('player.leaderboard');
 });

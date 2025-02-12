@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlayerJoinRequest;
 use App\Http\Requests\StartGameRequest;
 use App\Http\Requests\StartQuizRequest;
+use App\Http\Requests\SubmitQuizRequest;
 use App\Models\Player;
 use App\Models\Question;
 use App\Models\QuizCodes;
@@ -57,7 +58,10 @@ class PlayerQuizController extends Controller
             ->get()
             ->makeHidden(['correct_answer']);
 
-        return redirect()->route('player.show-start-quiz')->with('questions', $questions);
+        return redirect()->route('player.show-start-quiz')
+            ->with('id_player', $credential['id_player'])
+            ->with('id_quiz', $credential['id_quiz'])
+            ->with('questions', $questions);
     }
 
     public function showStartQuiz()
@@ -68,5 +72,25 @@ class PlayerQuizController extends Controller
     public function showLeaderboard()
     {
         return view('player.leaderboard');
+    }
+
+    public function submitQuiz(SubmitQuizRequest $req)
+    {
+        $credentials = $req->validated();
+
+        $real_questions = Question::where('id_quiz', $credentials['id_quiz']);
+
+        // Calculate player score
+        $score = 0;
+        $score_per_question = 100 / count($credentials['answers']);
+
+        for ($i=0; $i < count($credentials['answers']); $i++) { 
+            $score += $credentials['answers'][$i] == $real_questions[$i]['correct_answer'] ? $score_per_question : 0;
+        }
+
+        $player = Player::find($credentials['id_player']);
+        $player->score = $score;
+
+        return redirect()->route('player.leaderboard');
     }
 }
