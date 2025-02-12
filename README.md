@@ -7,7 +7,10 @@
 [![Beginner](https://img.shields.io/badge/Beginner-00A86B?style=flat)](https://github.com/topics/beginner)
 
 
-Sebuah game berbasis web sederhana yang bertujuan membantu para pelajar dalam belajar di sekolah. Aplikasi ini diharapkan dapat membantu proses belajar lebih menyenangkan dengan adanya **gamifikasi** dalam pengajaran suatu materi.
+> [!WARNING]
+> Proyek ini sedang dalam masa pengembangan!
+
+Sebuah game kuis berbasis web sederhana yang bertujuan membantu para pelajar dalam belajar di sekolah. Aplikasi ini diharapkan dapat membantu proses belajar lebih menyenangkan dengan adanya **gamifikasi** dalam pengajaran suatu materi.
 
 ---
 ## Penggunaan Teknologi 🤖
