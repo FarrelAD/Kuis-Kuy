@@ -23,13 +23,14 @@ Route::post('/enter-room', [PlayerQuizController::class, 'enterRoom'])
 Route::middleware([PlayerAuthMiddleware::class])->group(function () {
     
     // Protected player route
-    Route::get('/playground/{id}', [PlayerQuizController::class, 'playground'])->name('player.playground');
-    Route::get('/questions/1', function () {
-        return view('player.questions');
-    });
-    Route::get('/leaderboard', function () {
-        return view('player.leaderboard');
-    });
+    Route::get('/playground/{id}', [PlayerQuizController::class, 'playground'])
+        ->name('player.playground');
+    Route::post('/quiz', [PlayerQuizController::class, 'startQuiz'])
+        ->name('player.start-quiz');
+    Route::get('/quiz', [PlayerQuizController::class, 'showStartQuiz'])
+        ->name('player.show-start-quiz');
+    Route::get('/leaderboard', [PlayerQuizController::class, 'showLeaderboard'])
+        ->name('player.leaderboard');
 });
 
 

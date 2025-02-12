@@ -31,11 +31,16 @@
         </div>
 
         <div>
-            <button onclick="window.location.href='/questions/1'" class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">Mainkan</button>
+            <form action="{{ route('player.start-quiz') }}" method="post">
+                @csrf
+                
+                <input type="hidden" name="id_quiz" value="{{ $quiz->id_quiz }}">
+                <input type="submit" value="Mainkan" class="block bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">
+            </form>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <div class="bg-slate-950 w-full rounded-sm">
+            <div class="bg-slate-950 w-full rounded-md">
                 <p class="text-white text-center py-2">{{ $player->full_name }}</p>
             </div>
         </div>

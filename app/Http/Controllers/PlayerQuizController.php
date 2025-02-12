@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlayerJoinRequest;
 use App\Http\Requests\StartGameRequest;
+use App\Http\Requests\StartQuizRequest;
 use App\Models\Player;
+use App\Models\Question;
 use App\Models\QuizCodes;
 use App\Models\Quizzez;
 use Illuminate\Support\Facades\Auth;
@@ -45,5 +47,26 @@ class PlayerQuizController extends Controller
         $player = Auth::guard('player')->user();
 
         return view('player.playground', ['quiz' => $quiz, 'player' => $player]);
+    }
+
+    public function startQuiz(StartQuizRequest $req)
+    {
+        $credential = $req->validated();
+
+        $questions = Question::where('id_quiz', $credential['id_quiz'])
+            ->get()
+            ->makeHidden(['correct_answer']);
+
+        return redirect()->route('player.show-start-quiz')->with('questions', $questions);
+    }
+
+    public function showStartQuiz()
+    {
+        return view('player.quiz');
+    }
+
+    public function showLeaderboard()
+    {
+        return view('player.leaderboard');
     }
 }
