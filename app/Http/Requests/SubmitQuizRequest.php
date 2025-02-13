@@ -22,8 +22,8 @@ class SubmitQuizRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_player' => 'required|integer|exists:players,id',
-            'id_quiz' => 'required|integer|exists:quizzes,id',
+            'id_player' => 'required|integer|exists:players,id_player',
+            'id_quiz' => 'required|integer|exists:quizzez,id_quiz',
             'answers' => 'required|array|min:1',
         ];
     }

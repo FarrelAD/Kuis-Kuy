@@ -10,6 +10,7 @@ use App\Models\Player;
 use App\Models\Question;
 use App\Models\QuizCodes;
 use App\Models\Quizzez;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class PlayerQuizController extends Controller
@@ -78,19 +79,27 @@ class PlayerQuizController extends Controller
     {
         $credentials = $req->validated();
 
-        $real_questions = Question::where('id_quiz', $credentials['id_quiz']);
+        $real_questions = Question::where('id_quiz', $credentials['id_quiz'])->get();
 
-        // Calculate player score
         $score = 0;
         $score_per_question = 100 / count($credentials['answers']);
 
         for ($i=0; $i < count($credentials['answers']); $i++) { 
-            $score += $credentials['answers'][$i] == $real_questions[$i]['correct_answer'] ? $score_per_question : 0;
+            $score += $credentials['answers'][$i] == $real_questions[$i]->correct_answer ? $score_per_question : 0;
         }
 
-        $player = Player::find($credentials['id_player']);
-        $player->score = $score;
 
-        return redirect()->route('player.leaderboard');
+        try {
+            $player = Player::findOrFail($credentials['id_player']);
+            $player->score = $score;
+            
+            $player->save();
+    
+            return redirect()->route('player.leaderboard');
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Player not found'
+            ], 404);
+        }
     }
 }
