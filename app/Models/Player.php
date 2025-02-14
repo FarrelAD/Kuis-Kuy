@@ -12,18 +12,21 @@ class Player extends Model implements Authenticatable
     use HasFactory;
     use \Illuminate\Auth\Authenticatable;
 
-    protected $table = 'players';
-    protected $primaryKey = 'id_player';
     public $timestamps = false;
     protected $fillable = [
         'full_name',
         'score',
-        'id_student',
-        'id_quiz'
+        'student_id',
+        'quiz_id'
     ];
 
-    public function quizzez(): BelongsTo
+    public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Quizzez::class, 'id_quiz', 'id_quiz');
+        return $this->belongsTo(Quiz::class);
+    }
+
+    public function playerAnswers()
+    {
+        return $this->hasMany(PlayerAnswer::class);
     }
 }

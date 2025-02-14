@@ -18,12 +18,12 @@ class QuizCodes extends Model
         'code', 
         'expired_at',
         'game_duration',
-        'id_quiz'
+        'quiz_id'
     ];
 
     public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Quizzez::class, 'id_quiz', 'id_quiz');
+        return $this->belongsTo(Quiz::class);
     }
 
     public static function generate(int $id_quiz, int $game_duration)
@@ -32,7 +32,7 @@ class QuizCodes extends Model
             'code' => strtoupper(Str::random(4)),
             'expired_at' => Carbon::now()->addMinutes(10),
             'game_duration' => $game_duration,
-            'id_quiz' => $id_quiz
+            'quiz_id' => $id_quiz
         ]);
     }
 

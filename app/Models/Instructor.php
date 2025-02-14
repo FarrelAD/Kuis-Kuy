@@ -11,8 +11,14 @@ class Instructor extends Model implements Authenticatable
     use HasFactory;
     use \Illuminate\Auth\Authenticatable;
 
-    protected $table = 'instructors';
-    protected $primaryKey = 'id_instructor';
     public $timestamps = false;
-    protected $fillable = ['username', 'password'];
+    protected $fillable = [
+        'username', 
+        'password'
+    ];
+
+    public function quiz()
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

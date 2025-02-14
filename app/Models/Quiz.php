@@ -8,15 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Quizzez extends Model
+class Quiz extends Model
 {
     use HasFactory;
 
-    protected $table = 'quizzez';
-    protected $primaryKey = 'id_quiz';
     public $timestamps = false;
     protected $fillable = [
-        'id_instructor',
+        'instructor_id',
         'name',
         'total_question',
         'date_created',
@@ -24,12 +22,12 @@ class Quizzez extends Model
 
     public function instructor(): BelongsTo
     {
-        return $this->belongsTo(Instructor::class, 'id_instructor', 'id_instructor');
+        return $this->belongsTo(Instructor::class);
     }
 
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class, 'id_quiz');
+        return $this->hasMany(Question::class);
     }
 
     public function quizCode(): HasOne

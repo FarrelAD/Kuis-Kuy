@@ -10,23 +10,24 @@ class PlayerAnswer extends Model
 {
     use HasFactory;
 
-    public $incrementing = false;
-    protected $table = 'player_answers';
-    protected $primaryKey = ['id_player', 'id_question'];
+    protected $primaryKey = [
+        'id_player', 
+        'id_question'
+    ];
     public $timestamps = false;
     protected $fillable = [
-        'id_player',
-        'id_question',
+        'player_id',
+        'question_id',
         'selected_answer'
     ];
 
     public function player(): BelongsTo
     {
-        return $this->belongsTo(Player::class. 'id_player', 'id_player');
+        return $this->belongsTo(Player::class);
     }
 
     public function question(): BelongsTo
     {
-        return $this->belongsTo(Question::class, 'id_question', 'id_question');
+        return $this->belongsTo(Question::class);
     }
 }

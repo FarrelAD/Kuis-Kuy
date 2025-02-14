@@ -20,11 +20,16 @@ class Question extends Model
         'answer_c',
         'answer_d',
         'correct_answer',
-        'id_quiz'
+        'quiz_id'
     ];
 
-    public function quizzez(): BelongsTo
+    public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Quizzez::class, 'id_quiz', 'id_quiz');
+        return $this->belongsTo(Quiz::class);
+    }
+
+    public function playerAnswers()
+    {
+        return $this->hasMany(PlayerAnswer::class);
     }
 }
