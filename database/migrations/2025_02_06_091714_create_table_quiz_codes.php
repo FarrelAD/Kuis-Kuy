@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->timestamp('expired_at');
             $table->integer('game_duration');
-            $table->unsignedBigInteger('id_quiz');
-            $table->foreign('id_quiz')
-                ->references('id_quiz')
-                ->on('quizzez')
+            $table->foreignId('quiz_id')
+                ->constrained()
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
     }

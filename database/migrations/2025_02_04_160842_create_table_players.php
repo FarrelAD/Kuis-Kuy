@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('players', function (Blueprint $table) {
-            $table->id('id_player');
+            $table->id();
             $table->string('full_name');
             $table->float('score')->default(0);
-            $table->string('id_student');
-            $table->unsignedBigInteger('id_quiz');
-            $table->foreign('id_quiz')
-                ->references('id_quiz')
-                ->on('quizzez')
+            $table->foreignId('quiz_id')
+                ->constrained()
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->string('student_id');
         });
     }
 
