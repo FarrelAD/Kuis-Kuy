@@ -94,8 +94,11 @@ class PlayerQuizController extends Controller
             $player->score = $score;
             
             $player->save();
+
+            $players = Player::where('id_quiz', $credentials['id_quiz'])->get();
     
-            return redirect()->route('player.leaderboard');
+            return redirect()->route('player.leaderboard')
+                ->with('players', $players);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Player not found'

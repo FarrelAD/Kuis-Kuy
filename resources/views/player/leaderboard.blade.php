@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preparation</title>
+    <title>Papan Peringkat</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -51,91 +51,19 @@
 
 
         <table id="table-standings">
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">4</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
+            @if (session('players'))
+                @foreach (session('players') as $player)
+                    <tr class="border-b-2 border-black">
+                        <td class="text-sm leading-5 font-normal">{{ $loop->iteration + 3 }}</td>
+                        <td class="text-sm leading-5 font-normal">{{ $loop->count }}</td>
+                        <td class="text-xs leading-4 font-bold">{{ $loop->index }} pts</td>
+                    </tr>
+                @endforeach
+            @else
+            <tr>
+                <td class="text-center">Tidak ada pemain yang bermain di sini!</td>
             </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">5</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">6</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">7</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">8</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">9</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">10</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">11</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">12</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">13</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">14</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">15</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">16</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">17</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">18</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">19</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
-            <tr class="border-b-2 border-black">
-                <td class="text-sm leading-5 font-normal">20</td>
-                <td class="text-sm leading-5 font-normal">Dennis Ritchie</td>
-                <td class="text-xs leading-4 font-bold">3456 pts</td>
-            </tr>
+            @endif
         </table>
     </main>
 </body>
