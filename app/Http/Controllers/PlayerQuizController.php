@@ -8,8 +8,8 @@ use App\Http\Requests\StartQuizRequest;
 use App\Http\Requests\SubmitQuizRequest;
 use App\Models\Player;
 use App\Models\Question;
-use App\Models\QuizCodes;
-use App\Models\Quizzez;
+use App\Models\QuizCode;
+use App\Models\Quiz;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,16 +19,16 @@ class PlayerQuizController extends Controller
     {
         $credentials = $req->validated();
 
-        $quiz = QuizCodes::where('code', implode('', $credentials['game_code']))->first();
+        $quiz = QuizCode::where('code', implode('', $credentials['game_code']))->first();
 
-        if ($quiz) {
-            return view('player.preparation', ['id_quiz' => $quiz->id_quiz]);
+        if (!$quiz) {
+            return response()->json([
+                'message' => 'game code can not found'
+            ], 404);
         }
-
-        return response()->json([
-            'message' => 'game code can not found',
-            'raw' => implode('', $credentials['game_code'])
-        ], 404);
+        
+        $html = view('player.preparation', ['quiz_id' => $quiz->id])->render();
+        return response()->json(['html' => $html]);
     }
 
     public function enterRoom(PlayerJoinRequest $req)
@@ -37,14 +37,14 @@ class PlayerQuizController extends Controller
 
         $player = Player::create($credentials);
 
-        auth()->guard('player')->login($player);
+        Auth::guard('player')->login($player);
 
-        return redirect()->route('player.playground', ['id' => $credentials['id_quiz']]);
+        return redirect()->route('player.playground', ['id' => $credentials['quiz_id']]);
     }
 
     public function playground(int $id)
     {
-        $quiz = Quizzez::find($id);
+        $quiz = Quiz::find($id);
 
         $player = Auth::guard('player')->user();
 

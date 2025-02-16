@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Kuis Kuy!</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -42,9 +43,7 @@
 
 
     <template id="player-card">
-        <form action="{{ route('quiz-preparation') }}" method="post">
-            @csrf
-            
+        <form id="player-form">
             <p class="text-base leading-6 font-medium text-center">Masukkan kode ruang bermain</p>
     
             <div class="grid grid-cols-4 gap-4 my-14">
@@ -75,9 +74,7 @@
 
 
     <template id="instructor-card">
-        <form action="{{ route('login.post') }}" method="post">
-            @csrf
-
+        <form id="instructor-form">
             <p class="text-base leading-6 font-medium text-center">Login</p>
 
             <input type="text" name="username" id="input-username" placeholder="Nama pengguna" required
@@ -88,20 +85,12 @@
             <input type="submit" value="Masuk"
                 class="bg-slate-950 border py-2 my-2 text-white text-center rounded-md w-full">
             <a href="/signup" class="w-full block font-bold text-xs text-center hover:underline">Belum punya akun?</a>
-
-            @if ($errors->any())
-                <div class="text-red-500 text-sm my-2">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
         </form>
     </template>
 
     <script>
+        const CSRRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         const card = document.getElementById('card');
         const playerCard = document.getElementById('player-card');
         const instructorCard = document.getElementById('instructor-card');
@@ -118,12 +107,74 @@
                     this.value = this.value.toUpperCase();
                 });
             });
+
+            const playerForm = document.getElementById('player-form');
+
+            playerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                fetch('{{ route('quiz-preparation') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': CSRRF_TOKEN
+                    },
+                    body: new FormData(this)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Fail to enter to game room!')
+                        }
+
+                        return response.json()
+                    })
+                    .then(data => {
+                        document.open();
+                        document.write(data.html);
+                        document.close();
+                    })
+                    .catch(error => alert(error));
+            });
         }
 
         function setInstructor() {
             const instructorCardTemplate = instructorCard.content.cloneNode(true);
             card.replaceChildren(instructorCardTemplate);
+
+            const instructorForm = document.getElementById('instructor-form');
+
+            instructorForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                fetch('{{ route('login.post') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': CSRRF_TOKEN
+                    },
+                    body: new FormData(this)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            let message = 'Gagal login! ';
+                            switch (response.status) {
+                                case 400: message += 'Telah terjadi kesalahan pada formulir pengguna'; break;
+                                case 401: message += 'Tidak ditemukan pengguna yang cocok!'; break;
+                                case 500: message += 'Server sedang mengalami gangguan! Harap bersabar!'; break;
+                            }
+
+                            throw new Error(message);
+                        }
+
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        }
+                    })
+                    .catch(error => {
+                        alert(error);
+                    })
+            });
         }
+
+
     </script>
 </body>
 

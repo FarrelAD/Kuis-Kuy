@@ -8,6 +8,7 @@ use App\Http\Requests\InstructorSignupRequest;
 use App\Models\Instructor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class InstructorAuthController extends Controller
 {
@@ -17,12 +18,12 @@ class InstructorAuthController extends Controller
 
         if (Auth::guard('instructor')->attempt($credentials)) {
             $req->session()->regenerate();
-            return redirect()->route('instructor.dashboard')->with('success', 'welcome');
+            return redirect()->route('instructor.dashboard');
         }
 
         return response()->json([
-            'message' => 'failed to authenticate'
-        ]);
+            'message' => 'Gagal login! Tidak ditemukan pengguna yang cocok!'
+        ], Response::HTTP_UNAUTHORIZED);
     }
 
     public function showSignup()
@@ -37,7 +38,7 @@ class InstructorAuthController extends Controller
 
         $instructor = Instructor::create($credentials);
 
-        auth()->guard('instructor')->login($instructor);
+        Auth::guard('instructor')->login($instructor);
 
         return redirect()->route('instructor.dashboard');
     }

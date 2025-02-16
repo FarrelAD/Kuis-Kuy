@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\InstructorAuthController;
+use App\Http\Controllers\InstructorQuizController;
 use App\Http\Controllers\PlayerQuizController;
-use App\Http\Controllers\QuizController;
 use App\Http\Middleware\InstructorAuthMiddleware;
 use App\Http\Middleware\PlayerAuthMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -51,12 +51,12 @@ Route::middleware([InstructorAuthMiddleware::class])->group(function () {
     Route::get('/dashboard', function () {
         return view('instructor.dashboard');
     })->name('instructor.dashboard');
-    Route::get('/new-quiz', [QuizController::class, 'showCreate']);
-    Route::post('/new-quiz', [QuizController::class, 'create'])
+    Route::get('/new-quiz', [InstructorQuizController::class, 'showCreate']);
+    Route::post('/new-quiz', [InstructorQuizController::class, 'create'])
         ->name('instructor.new-quiz');
-    Route::get('/all-quiz', [QuizController::class, 'showAllQuiz']);
-    Route::get('/start-quiz/{id}', [QuizController::class, 'showStartQuiz'])
+    Route::get('/all-quiz', [InstructorQuizController::class, 'showAllQuiz']);
+    Route::get('/start-quiz/{id}', [InstructorQuizController::class, 'showStartQuiz'])
         ->name('instructor.start-quiz');
-    Route::post('/game-code', [QuizController::class, 'generateGameCode'])
+    Route::post('/game-code', [InstructorQuizController::class, 'generateGameCode'])
         ->name('instructor.get-game-code');
 });
